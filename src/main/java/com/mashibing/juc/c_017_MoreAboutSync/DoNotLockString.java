@@ -12,7 +12,8 @@
 package com.mashibing.juc.c_017_MoreAboutSync;
 
 public class DoNotLockString {
-	
+
+	//±‹√‚
 	String s1 = "Hello";
 	String s2 = "Hello";
 
