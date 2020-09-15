@@ -38,9 +38,7 @@ public class T04_NotifyFreeLock {
 	
 	public static void main(String[] args) {
 		T04_NotifyFreeLock c = new T04_NotifyFreeLock();
-		
 		final Object lock = new Object();
-		
 		new Thread(() -> {
 			synchronized(lock) {
 				System.out.println("t2Æô¶¯");

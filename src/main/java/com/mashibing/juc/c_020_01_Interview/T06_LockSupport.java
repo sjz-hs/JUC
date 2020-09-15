@@ -48,9 +48,7 @@ public class T06_LockSupport {
 
 	public static void main(String[] args) {
 		T06_LockSupport c = new T06_LockSupport();
-
 		CountDownLatch latch = new CountDownLatch(1);
-
 		Thread t2 = new Thread(() -> {
 			System.out.println("t2Æô¶¯");
 			if (c.size() != 5) {
@@ -59,8 +57,6 @@ public class T06_LockSupport {
 
 			}
 			System.out.println("t2 ½áÊø");
-
-
 		}, "t2");
 
 		t2.start();

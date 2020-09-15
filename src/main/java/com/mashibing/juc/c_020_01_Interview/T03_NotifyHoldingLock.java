@@ -59,13 +59,13 @@ public class T03_NotifyHoldingLock { //wait notify
 			e1.printStackTrace();
 		}
 
+
 		new Thread(() -> {
 			System.out.println("t1Æô¶¯");
 			synchronized(lock) {
 				for(int i=0; i<10; i++) {
 					c.add(new Object());
 					System.out.println("add " + i);
-					
 					if(c.size() == 5) {
 						lock.notify();
 					}
