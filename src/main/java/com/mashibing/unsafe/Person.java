@@ -11,6 +11,8 @@ public class Person {
     private static  Unsafe UNSAFE;
 
     private static long I_OFFSET;
+
+    private String[] table={"1","2","3"};
     static {
         try {
             //反射获取
@@ -26,34 +28,40 @@ public class Person {
     public static void main(String[] args) throws IOException {
        Person person=new Person();
 
-        new Thread(()->{
-            System.out.println(I_OFFSET);
-            while (true){
-                boolean b = UNSAFE.compareAndSwapInt(person, I_OFFSET, person.i, person.i+1);
-                if(b){
-                    System.out.println(UNSAFE.getIntVolatile(person,I_OFFSET));
-                }else{
-                    System.out.println("false:"+UNSAFE.getIntVolatile(person,I_OFFSET));
-                }
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-            }
-        }).start();
+        int ns = UNSAFE.arrayIndexScale(String[].class);
 
-        new Thread(()->{
-            while (true){
-                boolean b = UNSAFE.compareAndSwapInt(person, I_OFFSET, person.i, person.i+1);
-                if(b){
-                    System.out.println(UNSAFE.getIntVolatile(person,I_OFFSET));
-                }else{
-                    System.out.println("false:"+UNSAFE.getIntVolatile(person,I_OFFSET));
-                }
-            }
-        }).start();
-        System.in.read();
+        int base = UNSAFE.arrayBaseOffset(String[].class);
+
+        System.out.println(UNSAFE.getObject(person.table,base+0*ns));
+
+//        new Thread(()->{
+//            System.out.println(I_OFFSET);
+//            while (true){
+//                boolean b = UNSAFE.compareAndSwapInt(person, I_OFFSET, person.i, person.i+1);
+//                if(b){
+//                    System.out.println(UNSAFE.getIntVolatile(person,I_OFFSET));
+//                }else{
+//                    System.out.println("false:"+UNSAFE.getIntVolatile(person,I_OFFSET));
+//                }
+////                try {
+////                    Thread.sleep(1000);
+////                } catch (InterruptedException e) {
+////                    e.printStackTrace();
+////                }
+//            }
+//        }).start();
+//
+//        new Thread(()->{
+//            while (true){
+//                boolean b = UNSAFE.compareAndSwapInt(person, I_OFFSET, person.i, person.i+1);
+//                if(b){
+//                    System.out.println(UNSAFE.getIntVolatile(person,I_OFFSET));
+//                }else{
+//                    System.out.println("false:"+UNSAFE.getIntVolatile(person,I_OFFSET));
+//                }
+//            }
+//        }).start();
+//        System.in.read();
 
     }
 
