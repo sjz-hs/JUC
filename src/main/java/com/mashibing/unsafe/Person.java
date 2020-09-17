@@ -29,11 +29,11 @@ public class Person {
         new Thread(()->{
             System.out.println(I_OFFSET);
             while (true){
-                boolean b = UNSAFE.compareAndSwapInt(person.i, I_OFFSET, person.i, person.i++);
+                boolean b = UNSAFE.compareAndSwapInt(person, I_OFFSET, person.i, person.i+1);
                 if(b){
                     System.out.println(UNSAFE.getIntVolatile(person,I_OFFSET));
                 }else{
-                    System.out.println("false:"+person.i);
+                    System.out.println("false:"+UNSAFE.getIntVolatile(person,I_OFFSET));
                 }
 //                try {
 //                    Thread.sleep(1000);
@@ -45,11 +45,11 @@ public class Person {
 
         new Thread(()->{
             while (true){
-                boolean b = UNSAFE.compareAndSwapInt(person.i, I_OFFSET, person.i, person.i++);
+                boolean b = UNSAFE.compareAndSwapInt(person, I_OFFSET, person.i, person.i+1);
                 if(b){
                     System.out.println(UNSAFE.getIntVolatile(person,I_OFFSET));
                 }else{
-                    System.out.println("false:"+person.i);
+                    System.out.println("false:"+UNSAFE.getIntVolatile(person,I_OFFSET));
                 }
             }
         }).start();
