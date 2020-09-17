@@ -18,7 +18,6 @@ public class Person {
             field.setAccessible(true);
             UNSAFE= (Unsafe) field.get(null);
             I_OFFSET=UNSAFE.objectFieldOffset(Person.class.getDeclaredField("i"));
-
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -32,7 +31,7 @@ public class Person {
             while (true){
                 boolean b = UNSAFE.compareAndSwapInt(person.i, I_OFFSET, person.i, person.i++);
                 if(b){
-                    System.out.println(person.i);
+                    System.out.println(UNSAFE.getIntVolatile(person,I_OFFSET));
                 }else{
                     System.out.println("false:"+person.i);
                 }
@@ -48,7 +47,7 @@ public class Person {
             while (true){
                 boolean b = UNSAFE.compareAndSwapInt(person.i, I_OFFSET, person.i, person.i++);
                 if(b){
-                    System.out.println(person.i);
+                    System.out.println(UNSAFE.getIntVolatile(person,I_OFFSET));
                 }else{
                     System.out.println("false:"+person.i);
                 }
