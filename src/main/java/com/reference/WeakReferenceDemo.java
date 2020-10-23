@@ -18,11 +18,14 @@ import java.util.concurrent.TimeUnit;
  * WeakHashMap  k==null  会回收
  *
  *
- * tl ==null 但是存在当前thread==>Map 如果为强引用 就永远不会回收   弱引用只要垃圾回收就会回收  key
+ * tl ==null 但是存在当前thread==>Map 如果为强引用 就永远不会回收   弱引用只要垃圾回收就会回收  key  value Thread 一直运行 线程中的Map不会回收
  *
  * 防止内存泄漏
  *
  * value  ==> remove()  否则也会内存泄漏
+ *
+ *     super(k);  （回收key）
+ *     value = v;
  *
  */
 public class WeakReferenceDemo {
@@ -39,6 +42,8 @@ public class WeakReferenceDemo {
         for (Map.Entry<Object, M> entry : entries) {
             System.out.println(entry.getValue());
         }
+
+
         WeakHashMap<Object,M> weakHashMap=new WeakHashMap<>();
         Object o1=new Object();
         M m1 = new M();
@@ -50,6 +55,8 @@ public class WeakReferenceDemo {
         TimeUnit.SECONDS.sleep(2);
 
         Set<Map.Entry<Object, M>> entries1 = weakHashMap.entrySet();
+
+
 
         System.out.println(1);
         for (Map.Entry<Object, M> objectMEntry : entries1) {

@@ -17,7 +17,7 @@ public class CurrentHashMapDemo{
 
         HashMap hashMap=new HashMap();
 
-        Integer.numberOfLeadingZeros(1); //返回高位0的数量
+        System.out.println(Integer.numberOfLeadingZeros(3));
 
 
         //hashTable 整个加锁 锁了整个资源浪费啊
